@@ -1,0 +1,12 @@
+.memberInfo {
+  margin: 0px;
+  width: 50%;
+  height: 100px;
+  background-color: white;
+  float : left;
+  clear: both;
+}
+
+.memberInfo > input {
+  width: 100%;
+}

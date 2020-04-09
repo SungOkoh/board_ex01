@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.model.DemoMapper">
+    <!--	select-->
+    <select id="selectAllMember" resultType="com.example.demo.vo.MemberVO">
+        SELECT *
+        FROM member
+    </select>
+
+    <select id="selectLogin" parameterType="com.example.demo.vo.MemberVO" resultType="com.example.demo.vo.MemberVO">
+        SELECT *
+        FROM member
+        WHERE member_id = #{member_id}
+          AND member_pw = #{member_pw}
+    </select>
+
+    <select id="selectArticleByBoardName" parameterType="String" resultType="com.example.demo.vo.ArticleVO">
+        SELECT *
+        FROM article
+        WHERE board_no = (SELECT board_no
+                          FROM board
+                          WHERE board_name = #{board_name})
+
+    </select>
+
+    <select id="selectBoardIdByName" parameterType="String" resultType="Integer">
+        SELECT board_no
+        FROM board
+        WHERE board_name = #{board_name}
+    </select>
+    
+    <select id="selectArticleIdBymember" parameterType="String" resultType="Integer">
+    	SELECT article_no
+    	FROM article
+    	WHERE article_ip = #{article_ip}
+    </select>
+
+    <select id="selectArticleById" parameterType="Integer" resultType="java.util.HashMap">
+        SELECT article_no,
+               article_pno,
+               article.board_no,
+               board_name,
+               member_nick,
+               article_name,
+               article_content,
+               article_recommends,
+               article_views,
+               article_images,
+               article_ip,
+               article_reports,
+               article_created_time,
+               article_changed_time,
+               article_isDeleted
+        FROM article,
+             member,
+             board
+        WHERE board.board_no = article.board_no
+          AND member.member_no = article.member_no
+          AND article.article_no = #{articleNo}
+    </select>
+
+    <select id="selectReplyByArticleNo" parameterType="Integer" resultType="java.util.HashMap">
+        SELECT member_nick,
+               reply_no,
+               reply_pno,
+               reply_ip,
+               reply_created_time,
+               reply_changed_time,
+               reply_recommends,
+               reply_reports,
+               reply_isDeleted,
+               reply_content
+        FROM reply,
+             member
+        WHERE reply.article_no = #{articleNO}
+          AND reply.member_no = member.member_no
+        ORDER BY reply_no
+    </select>
+
+    <!--	insert-->
+    <insert id="insertMember">
+        INSERT INTO member (member_id,
+                            member_pw,
+                            member_name,
+                            member_nick,
+                            member_email,
+                            member_phone,
+                            member_gender,
+                            member_created_date)
+        VALUES (#{member_id},
+                #{member_pw},
+                #{member_name},
+                #{member_nick},
+                #{member_email},
+                #{member_phone},
+                #{member_gender},
+                now())
+    </insert>
+
+    <insert id="insertArticle">
+        INSERT INTO article (article_pno,
+                             board_no,
+                             member_no,
+                             article_name,
+                             article_content,
+                             article_recommends,
+                             article_views,
+                             article_images,
+                             article_ip,
+                             article_reports,
+                             article_created_time)
+        VALUES (#{article_pno},
+                #{board_no},
+                #{member_no},
+                #{article_name},
+                #{article_content},
+                0,
+                0,
+                0,
+                #{article_ip},
+                0,
+                now());
+
+    </insert>
+
+    <insert id="insertReply">
+        INSERT INTO reply (reply_pno,
+                           board_no,
+                           article_no,
+                           member_no,
+                           reply_content,
+                           reply_recommends,
+                           reply_images,
+                           reply_ip,
+                           reply_reports,
+                           reply_created_time)
+        VALUES (#{reply_pno},
+                #{board_no},
+                #{article_no},
+                #{member_no},
+                #{content},
+                0,
+                0,
+                #{reply_ip},
+                0,
+                now());
+
+    </insert>
+    
+        
+    <update id ="updateArticle">
+    	update article set article_name=#{article_name}, article_content=#{article_content} where article_no=#{article_no};
+    </update>
+    
+    <delete id ="deleteArticle">
+    	delete from article where article_no=#{article_no};
+    </delete>
+
+</mapper>

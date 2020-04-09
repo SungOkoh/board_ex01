@@ -1,0 +1,15 @@
+.memberInfo {
+  margin: 0px;
+  height: 100px;
+  float : left;
+  clear: both;
+}
+
+.memberInfo > div {
+  background-color: white;
+
+}
+
+.memberInfo > input {
+  width: 100%;
+}

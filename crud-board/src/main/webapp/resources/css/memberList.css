@@ -1,0 +1,18 @@
+.memberTable {
+  border-collapse: collapse;
+}
+
+.memberTable td,th {
+  border: 1px solid black;
+}
+
+.memberTable th {
+  padding-left: 10px;
+  background-color: #232F3E;
+  color: #ffffff;
+}
+
+.memberTable td {
+  background-color: #ffffff;
+}
+
