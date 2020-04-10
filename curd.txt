@@ -1,3 +1,24 @@
+
+CREATE TABLE `board` (
+  `board_no` int NOT NULL AUTO_INCREMENT,
+  `board_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`board_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `member` (
+  `member_no` int NOT NULL AUTO_INCREMENT,
+  `member_id` varchar(20) DEFAULT NULL,
+  `member_pw` varchar(30) DEFAULT NULL,
+  `member_name` varchar(30) DEFAULT NULL,
+  `member_nick` varchar(20) DEFAULT NULL,
+  `member_email` varchar(20) DEFAULT NULL,
+  `member_phone` varchar(20) DEFAULT NULL,
+  `member_gender` varchar(20) DEFAULT NULL,
+  `member_created_date` date DEFAULT NULL,
+  PRIMARY KEY (`member_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+
 CREATE TABLE `article` (
   `article_pno` int DEFAULT NULL,
   `article_no` int NOT NULL AUTO_INCREMENT,
@@ -19,27 +40,6 @@ CREATE TABLE `article` (
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`),
   CONSTRAINT `article_ibfk_2` FOREIGN KEY (`board_no`) REFERENCES `board` (`board_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
-
-
-CREATE TABLE `board` (
-  `board_no` int NOT NULL AUTO_INCREMENT,
-  `board_name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`board_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
-
-
-CREATE TABLE `member` (
-  `member_no` int NOT NULL AUTO_INCREMENT,
-  `member_id` varchar(20) DEFAULT NULL,
-  `member_pw` varchar(30) DEFAULT NULL,
-  `member_name` varchar(30) DEFAULT NULL,
-  `member_nick` varchar(20) DEFAULT NULL,
-  `member_email` varchar(20) DEFAULT NULL,
-  `member_phone` varchar(20) DEFAULT NULL,
-  `member_gender` varchar(20) DEFAULT NULL,
-  `member_created_date` date DEFAULT NULL,
-  PRIMARY KEY (`member_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
 
 
 
