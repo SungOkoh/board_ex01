@@ -1,0 +1,69 @@
+CREATE TABLE `article` (
+  `article_pno` int DEFAULT NULL,
+  `article_no` int NOT NULL AUTO_INCREMENT,
+  `board_no` int DEFAULT NULL,
+  `member_no` int DEFAULT NULL,
+  `article_name` varchar(30) DEFAULT NULL,
+  `article_content` varchar(300) DEFAULT NULL,
+  `article_recommends` int DEFAULT NULL,
+  `article_views` int DEFAULT NULL,
+  `article_images` int DEFAULT NULL,
+  `article_ip` varchar(100) DEFAULT NULL,
+  `article_reports` int DEFAULT NULL,
+  `article_created_time` date DEFAULT NULL,
+  `article_changed_time` date DEFAULT NULL,
+  `article_isDeleted` int DEFAULT NULL,
+  PRIMARY KEY (`article_no`),
+  KEY `member_no` (`member_no`),
+  KEY `board_no` (`board_no`),
+  CONSTRAINT `article_ibfk_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`),
+  CONSTRAINT `article_ibfk_2` FOREIGN KEY (`board_no`) REFERENCES `board` (`board_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `board` (
+  `board_no` int NOT NULL AUTO_INCREMENT,
+  `board_name` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`board_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `member` (
+  `member_no` int NOT NULL AUTO_INCREMENT,
+  `member_id` varchar(20) DEFAULT NULL,
+  `member_pw` varchar(30) DEFAULT NULL,
+  `member_name` varchar(30) DEFAULT NULL,
+  `member_nick` varchar(20) DEFAULT NULL,
+  `member_email` varchar(20) DEFAULT NULL,
+  `member_phone` varchar(20) DEFAULT NULL,
+  `member_gender` varchar(20) DEFAULT NULL,
+  `member_created_date` date DEFAULT NULL,
+  PRIMARY KEY (`member_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+
+
+
+CREATE TABLE `reply` (
+  `reply_pno` int DEFAULT NULL,
+  `board_no` int DEFAULT NULL,
+  `article_no` int DEFAULT NULL,
+  `member_no` int DEFAULT NULL,
+  `reply_no` int NOT NULL AUTO_INCREMENT,
+  `reply_content` varchar(100) DEFAULT NULL,
+  `reply_recommends` int DEFAULT NULL,
+  `reply_images` int DEFAULT NULL,
+  `reply_ip` varchar(100) DEFAULT NULL,
+  `reply_reports` int DEFAULT NULL,
+  `reply_created_time` date DEFAULT NULL,
+  `reply_changed_time` date DEFAULT NULL,
+  `reply_isDeleted` int DEFAULT NULL,
+  PRIMARY KEY (`reply_no`),
+  KEY `board_no` (`board_no`),
+  KEY `article_no` (`article_no`),
+  KEY `member_no` (`member_no`),
+  CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`board_no`) REFERENCES `board` (`board_no`),
+  CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`article_no`) REFERENCES `article` (`article_no`),
+  CONSTRAINT `reply_ibfk_3` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+
